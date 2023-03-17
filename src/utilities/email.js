@@ -9,8 +9,8 @@ const sendEmail = async(subject, html, cb)=> {
         }
     });
     let mailOptions = {
-        from: 'shoaibmehmood065@gmail.com',
-        to: 'shoaibmehmood065@gmail.com',
+        from: 'lead@oqvest.com',
+        to: 'lead@oqvest.com',
         subject: subject,
         html: html
     }
