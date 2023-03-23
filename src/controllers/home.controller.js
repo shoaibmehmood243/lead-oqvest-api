@@ -7,6 +7,8 @@ const homeController = {
             const html = `
                 <h1>Data entered by: ${email} is following</h1>
                 <p>Name: ${req.body.formData.name}</p>
+                <p>Email: ${req.body.formData.email}</p>
+                <p>Number: ${req.body.formData.number}</p>
                 <p>Zip Code: ${req.body.formData.zipCode}</p>
                 <p>Home Type: ${req.body.formData.homeType}</p>
                 <p>Property Type: ${req.body.formData.propertyType}</p>
@@ -39,6 +41,8 @@ const homeController = {
             const html = `
                 <h1>Data entered by: ${email} is following</h1>
                 <p>Name: ${req.body.formData.name}</p>
+                <p>Email: ${req.body.formData.email}</p>
+                <p>Number: ${req.body.formData.number}</p>
                 <p>Zip Code: ${req.body.formData.zipCode}</p>
                 <p>Home Type: ${req.body.formData.homeType}</p>
                 <p>Property Type: ${req.body.formData.propertyType}</p>
