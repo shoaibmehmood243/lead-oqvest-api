@@ -2,14 +2,16 @@ const nodemailer = require('nodemailer');
 
 const sendEmail = async(subject, html, cb)=> {
     let transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.titan.email',
+        port: 465,
+        secure: true,
         auth: {
-            user: 'shoaibmehmood065@gmail.com',
-            pass: 'fdktthzmaghlanwi'
+            user: 'info@oqvest.com',
+            pass: '3lEZ!b7PR1$ss-'
         }
     });
     let mailOptions = {
-        from: 'lead@oqvest.com',
+        from: 'info@oqvest.com',
         to: 'lead@oqvest.com',
         subject: subject,
         html: html
