@@ -21,6 +21,7 @@ const homeController = {
                 <p>Kind of Rate: ${req.body.formData.rateKind}</p>
                 <p>Household Income: ${req.body.formData.householdIncome}</p>
                 <p>Employement Status: ${req.body.formData.employementStatus}</p>
+                <p>Bankruptcy, short sale, or foreclosure in the last 3 years?: ${req.body.formData.isFirstPurcase}</p>
                 <p>Income Proof: ${req.body.formData.incomeProof}</p>
                 <p>Agent Associated: ${req.body.formData.agentAssociated}</p>
             `
