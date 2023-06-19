@@ -53,6 +53,7 @@ const homeController = {
                         const page = await browser.newPage();
                         // Navigate to the webpage containing the form
                         await page.goto('https://api.clixlo.com/widget/form/wMbKwQ0BfkLFQQcClrvG', { waitUntil: 'domcontentloaded' });
+                       console.log('ok');
                         // Fill in the form fields as Needed
                         await page.type('input[name="full_name"]', String(full_name));
                         await page.type('input[name="phone"]', phone);
@@ -78,6 +79,7 @@ const homeController = {
                         
                         // Click on the button
                         await page.click('button');
+                        console.log('ok');
                         // Wait for navigation to complete
                         await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
@@ -150,6 +152,8 @@ const homeController = {
                         const page = await browser.newPage();
                         // Navigate to the webpage containing the form
                         await page.goto('https://api.clixlo.com/widget/form/d8K0IpsJGdtuVyErO1TR', { waitUntil: 'domcontentloaded' });
+                       console.log('ok');
+                    
                         // Fill in the form fields as Needed
                         await page.type('input[name="full_name"]', String(full_name));
                         await page.type('input[name="phone"]', phone);
@@ -177,6 +181,8 @@ const homeController = {
             
                         // Click on the button
                         await page.click('button');
+                       console.log('ok');
+
             
                         // Wait for navigation to complete
                         await page.waitForNavigation({ waitUntil: 'networkidle0' });
