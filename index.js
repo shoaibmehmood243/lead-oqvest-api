@@ -4,13 +4,9 @@ const cors = require('cors');
 const homeRoute = require('./src/routes/home.route');
 
 app.use(express.json());
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://lead.oqvest.com');
-    next();
-});
 app.use(cors({
-    origin: 'https://lead.oqvest.com'
-}));  
+    origin: '*'
+  })); 
 
 app.get('/', (req, res)=> {
     res.send('Lead oqvest api working fine...');
