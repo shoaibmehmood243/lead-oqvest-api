@@ -5,9 +5,8 @@ const homeRoute = require('./src/routes/home.route');
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://lead.oqvest.com',
-    methods: 'GET, POST, PUT, DELETE',
-    allowedHeaders: 'Content-Type, Authorization',
+    origin: true,
+    credentials: true
 }));
 
 app.get('/', (req, res)=> {
