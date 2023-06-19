@@ -49,7 +49,7 @@ const homeController = {
                     next(err);
                 } else {
                     (async () => {
-                        const browser = await puppeteer.launch();
+                        const browser = await puppeteer.launch({ headless: "new" });
                         const page = await browser.newPage();
                         // Navigate to the webpage containing the form
                         await page.goto('https://api.clixlo.com/widget/form/wMbKwQ0BfkLFQQcClrvG', { waitUntil: 'domcontentloaded' });
@@ -148,7 +148,7 @@ const homeController = {
                     next(err);
                 } else {
                     (async () => {
-                        const browser = await puppeteer.launch();
+                        const browser = await puppeteer.launch({ headless: "new" });
                         const page = await browser.newPage();
                         // Navigate to the webpage containing the form
                         await page.goto('https://api.clixlo.com/widget/form/d8K0IpsJGdtuVyErO1TR', { waitUntil: 'domcontentloaded' });
