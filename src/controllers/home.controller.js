@@ -81,7 +81,7 @@ const homeController = {
                         await page.click('button');
                         console.log('ok');
                         // Wait for navigation to complete
-                        await page.waitForNavigation({ waitUntil: 'networkidle0' });
+                        await page.waitForNavigation({ waitUntil: 'networkidle0', timeout: 60000 });
 
             
                         // Close the browser
@@ -185,7 +185,7 @@ const homeController = {
 
             
                         // Wait for navigation to complete
-                        await page.waitForNavigation({ waitUntil: 'networkidle0' });
+                        await page.waitForNavigation({ waitUntil: 'networkidle0', timeout: 60000 });
             
                         // Close the browser
                         await browser.close();
