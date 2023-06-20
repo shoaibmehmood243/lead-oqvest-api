@@ -14,7 +14,15 @@ app.use(cors({
 app.get('/', (req, res)=> {
     (async () => {
         try {
-          const browser = await puppeteer.launch({headless: false});
+          const browser = await puppeteer.launch({headless: false,
+            devtools: true,
+            args: [
+              '--ignore-certificate-errors',
+              '--no-sandbox',
+              '--disable-setuid-sandbox',
+              '--disable-accelerated-2d-canvas',
+              '--disable-gpu'
+                  ]});
           const page = await browser.newPage();
       
           await page.goto('https://www.google.com');
