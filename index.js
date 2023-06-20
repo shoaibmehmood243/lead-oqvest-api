@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const homeRoute = require('./src/routes/home.route');
+const puppeteer = require('puppeteer');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -11,7 +12,21 @@ app.use(cors({
 }));
 
 app.get('/', (req, res)=> {
-    res.send('Lead oqvest api working fine...');
+    (async () => {
+        try {
+          const browser = await puppeteer.launch({headless: false});
+          const page = await browser.newPage();
+      
+          await page.goto('https://www.google.com');
+          await page.screenshot({ path: 'screenshot.png' });
+      
+          await browser.close();
+          console.log('Screenshot saved successfully.');
+          res.send('Lead oqvest api working fine...');
+        } catch (error) {
+          console.error('An error occurred:', error);
+        }
+      })();
 });
 
 app.use('/form', homeRoute);
