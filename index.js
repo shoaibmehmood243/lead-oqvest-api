@@ -25,7 +25,6 @@ app.use((req, res, next)=>{
 });
 
 app.use((err, req, res, next)=>{
-    if(err.isJoi) err.status = 422;
     return res
     .status(err.status || 500)
     .send({
