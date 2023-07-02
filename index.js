@@ -12,7 +12,7 @@ app.use(cors({
 }));
 
 app.get('/', (req, res)=> {
-    res.send('Lead oqvest api working fine...');
+    res.send('Lead oqvest api working');
 });
 
 app.use('/form', homeRoute);
