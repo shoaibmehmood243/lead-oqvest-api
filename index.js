@@ -11,11 +11,11 @@ app.use(cors({
     credentials: true
 }));
 
-app.get('/', (req, res)=> {
+app.get('/api', (req, res)=> {
     res.send('Lead oqvest api working');
 });
 
-app.use('/form', homeRoute);
+app.use('/api/form', homeRoute);
 app.use('/api/v1', formRoute);
 
 app.use((req, res, next)=>{
