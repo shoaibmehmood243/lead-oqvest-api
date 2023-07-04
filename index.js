@@ -1,9 +1,17 @@
 const express = require('express');
 const cors = require('cors');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 const homeRoute = require('./src/routes/home.route');
 const formRoute = require('./src/routes/form.route');
-
+// Create the proxy middleware
+const apiProxy = createProxyMiddleware('/api', {
+    target: 'http://209.126.10.187',
+    changeOrigin: true,
+});
+  
+  // Use the proxy middleware
+app.use(apiProxy);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
