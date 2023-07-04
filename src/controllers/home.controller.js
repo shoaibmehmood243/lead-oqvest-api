@@ -1,6 +1,5 @@
 const sendEmail = require("../utilities/email");
-const validator = require("email-validator");
-const puppeteer = require('puppeteer');
+const { firefox } = require("playwright");
 
 const homeController = {
     purchase: async(req, res, next)=> {
@@ -44,54 +43,52 @@ const homeController = {
                 <p>Income Proof: ${req.body.formData.incomeProof}</p>
                 <p>Agent Associated: ${req.body.formData.agentAssociated}</p>
             `
-            await sendEmail('Account data entered by email:' + email, html, (err, success)=> {
+            await sendEmail('Account data entered by email:' + email, html, async(err, success)=> {
                 if(err) {
                     next(err);
                 } else {
-                    // (async () => {
-                    //     const browser = await puppeteer.launch({ headless: "new" });
-                    //     const page = await browser.newPage();
-                    //     // Navigate to the webpage containing the form
-                    //     await page.goto('https://api.clixlo.com/widget/form/wMbKwQ0BfkLFQQcClrvG', { waitUntil: 'domcontentloaded' });
-                    //    console.log('ok');
-                    //     // Fill in the form fields as Needed
-                    //     await page.type('input[name="full_name"]', String(full_name));
-                    //     await page.type('input[name="phone"]', phone);
-                    //     await page.type('input[name="email"]', String(email));
-                    //     await page.type('input[name="qpMmLQm5DIOG2Ux7PcnB"]', String(transaction));
-                    //     await page.type('input[name="CmdqKuXjIQUNz0Ef1B7J"]', String(property_type));
-                    //     await page.type('input[name="torHEECUN1qlAyUsipKu"]', String(credit_score));
-                    //     await page.type('input[name="eIz7EOmjQrvey8Yc8Yl6"]', String(first_purchase));
-                    //     await page.type('input[name="k7q4iRH1jmPv9jjAvL7e"]', String(purchase_stage));
-                    //     await page.type('input[name="eMy2OcvQcUN0rTNq22Zx"]', String(property_usage));
-                    //     await page.type('input[name="KW1REyBPr6aJAnGnv0Yu"]', String(home_value));
-                    //     await page.type('input[name="9NqRYFP1jMeDNqARqEcp"]', String(downpayment_percentage));
-                    //     await page.type('input[name="OSJ3HwhimgAP0jOAmFz6"]', String(rate_type));
-                    //     await page.type('input[name="3smlXpSpopER87L2V9rQ"]', String(total_annual_income));
-                    //     await page.type('input[name="aLgVGNkHkz9xE9wbmXVH"]', String(employement_status));
-                    //     await page.type('input[name="MJO6lINsXTRE2Mne6awc"]', String(bankruptcy));
-                    //     await page.type('input[name="DZ9qywLxPY1n7Nff5HnI"]', String(income_proof));
-                    //     await page.type('input[name="RZ34IPZhXGA8Z8pxkGXK"]', String(realEstate_agent));
-                    //     await page.type('input[name="hNn06S0mTBWBv4b5xE0N"]', String(zipCode));
-                    //     // Submit the form
-                    //     // Wait for the button to become visible and clickable
-                    //     await page.waitForSelector('button');
-                        
-                    //     // Click on the button
-                    //     await page.click('button');
-                    //     console.log('ok');
-                    //     // Wait for navigation to complete
-                    //     await page.waitForNavigation({ waitUntil: 'networkidle0', timeout: 60000 });
-
+                    try {
+                        const browser = await firefox.launch();
+                        const context = await browser.newContext();
+                        const page = await context.newPage();
             
-                    //     // Close the browser
-                    //     await browser.close();
-
-                    //     res.status(200).json({
-                    //         message: "Form Submitted Successfully. Email also sent successfully."
-                    //     });
-                    // })();
-                    res.status(200).send({message: 'Email sent successfully.'});
+                        await page.goto('https://api.clixlo.com/widget/form/wMbKwQ0BfkLFQQcClrvG');
+            
+                        await page.fill('input[name="full_name"]', String(full_name));
+                        await page.fill('input[name="phone"]', String(phone));
+                        await page.fill('input[name="email"]', String(email));
+                        await page.fill('input[name="qpMmLQm5DIOG2Ux7PcnB"]', String(transaction));
+                        await page.fill('input[name="CmdqKuXjIQUNz0Ef1B7J"]', String(property_type));
+                        await page.fill('input[name="torHEECUN1qlAyUsipKu"]', String(credit_score));
+                        await page.fill('input[name="eIz7EOmjQrvey8Yc8Yl6"]', String(first_purchase));
+                        await page.fill('input[name="k7q4iRH1jmPv9jjAvL7e"]', String(purchase_stage));
+                        await page.fill('input[name="eMy2OcvQcUN0rTNq22Zx"]', String(property_usage));
+                        await page.fill('input[name="KW1REyBPr6aJAnGnv0Yu"]', String(home_value));
+                        await page.fill('input[name="9NqRYFP1jMeDNqARqEcp"]', String(downpayment_percentage));
+                        await page.fill('input[name="OSJ3HwhimgAP0jOAmFz6"]', String(rate_type));
+                        await page.fill('input[name="3smlXpSpopER87L2V9rQ"]', String(total_annual_income));
+                        await page.fill('input[name="aLgVGNkHkz9xE9wbmXVH"]', String(employement_status));
+                        await page.fill('input[name="MJO6lINsXTRE2Mne6awc"]', String(bankruptcy));
+                        await page.fill('input[name="DZ9qywLxPY1n7Nff5HnI"]', String(income_proof));
+                        await page.fill('input[name="RZ34IPZhXGA8Z8pxkGXK"]', String(realEstate_agent));
+                        await page.fill('input[name="hNn06S0mTBWBv4b5xE0N"]', String(zipCode));
+            
+                        await page.waitForSelector('button');
+            
+                        await page.click('button[type="submit"]');
+                        await page.waitForNavigation();
+            
+                        await browser.close();
+            
+                        res.status(200).json({
+                            message: "Form Submitted Successfully & Email sent successfully."
+                        });
+                    } catch (error) {
+                        console.error(error);
+                        res.status(500).json({
+                            message: "Error occurred during form submission."
+                        });
+                    };
                 }
             })
         } catch (error) {
@@ -143,60 +140,53 @@ const homeController = {
                 <p>Monthly Income: ${req.body.formData.monthlyincome}</p>
                 <p>FHA Loan: ${req.body.formData.fhaLoan}</p>
             `
-            await sendEmail('Account data entered by email:' + email, html, (err, success)=> {
+            await sendEmail('Account data entered by email:' + email, html, async(err, success)=> {
                 if(err) {
                     next(err);
                 } else {
-                    // (async () => {
-                    //     const browser = await puppeteer.launch({ headless: "new" });
-                    //     const page = await browser.newPage();
-                    //     // Navigate to the webpage containing the form
-                    //     await page.goto('https://api.clixlo.com/widget/form/d8K0IpsJGdtuVyErO1TR', { waitUntil: 'domcontentloaded' });
-                    //    console.log('ok');
-                    
-                    //     // Fill in the form fields as Needed
-                    //     await page.type('input[name="full_name"]', String(full_name));
-                    //     await page.type('input[name="phone"]', phone);
-                    //     await page.type('input[name="email"]', String(email));
-                    //     await page.type('input[name="qpMmLQm5DIOG2Ux7PcnB"]', String(transaction));
-                    //     await page.type('input[name="CmdqKuXjIQUNz0Ef1B7J"]', String(property_type));
-                    //     await page.type('input[name="torHEECUN1qlAyUsipKu"]', String(credit_score));
-                    //     await page.type('input[name="eMy2OcvQcUN0rTNq22Zx"]', String(property_usage));
-                    //     await page.type('input[name="KW1REyBPr6aJAnGnv0Yu"]', String(home_value));
-                    //     await page.type('input[name="OSJ3HwhimgAP0jOAmFz6"]', String(rate_type));
-                    //     await page.type('input[name="3smlXpSpopER87L2V9rQ"]', String(total_annual_income));
-                    //     await page.type('input[name="aLgVGNkHkz9xE9wbmXVH"]', String(employement_status));
-                    //     await page.type('input[name="MJO6lINsXTRE2Mne6awc"]', String(bankruptcy));
-                    //     await page.type('input[name="DZ9qywLxPY1n7Nff5HnI"]', String(income_proof));
-                    //     await page.type('input[name="hNn06S0mTBWBv4b5xE0N"]', String(zipCode));
-                    //     await page.type('input[name="ke9jHqOsNFGrL7xMIwqd"]', String(mortgage));
-                    //     await page.type('input[name="liwo67H5BHQhwzQ6Cr4c"]', String(interest_rate));
-                    //     await page.type('input[name="iS3XKEg0Hhi8W4amOw9s"]', String(second_mortgage));
-                    //     await page.type('input[name="L6lMyRr7u3GFlq1CQU20"]', String(add_cash));
-                    //     await page.type('input[name="kAZsP7vDGqXjewCYV7OB"]', String(fha_loan));
-                    //     await page.type('input[name="PixfrmVegThu1SMyAohb"]', String(purchasing_year));
-                    //     // Submit the form
-                    //     // Wait for the button to become visible and clickable
-                    //     await page.waitForSelector('button');
-            
-                    //     // Click on the button
-                    //     await page.click('button');
-                    //    console.log('ok');
-
-            
-                    //     // Wait for navigation to complete
-                    //     await page.waitForNavigation({ waitUntil: 'networkidle0', timeout: 60000 });
-            
-                    //     // Close the browser
-                    //     await browser.close();
-                    //     res.status(200).json({
-                    //         message: "Form Submitted Successfully. Email also sent successfully."
-                    //     });
-            
-            
-                    // })();
-                    res.status(200).send({message: 'Email sent successfully.'});
-
+                    try {
+                        const browser = await firefox.launch();
+                        const context = await browser.newContext();
+                        const page = await context.newPage();
+                  
+                        await page.goto('https://api.clixlo.com/widget/form/d8K0IpsJGdtuVyErO1TR');
+                  
+                        await page.fill('input[name="full_name"]', full_name);
+                        await page.fill('input[name="phone"]', phone);
+                        await page.fill('input[name="email"]', email);
+                        await page.fill('input[name="qpMmLQm5DIOG2Ux7PcnB"]', transaction);
+                        await page.fill('input[name="CmdqKuXjIQUNz0Ef1B7J"]', property_type);
+                        await page.fill('input[name="torHEECUN1qlAyUsipKu"]', credit_score);
+                        await page.fill('input[name="eMy2OcvQcUN0rTNq22Zx"]', property_usage);
+                        await page.fill('input[name="KW1REyBPr6aJAnGnv0Yu"]', home_value);
+                        await page.fill('input[name="OSJ3HwhimgAP0jOAmFz6"]', rate_type);
+                        await page.fill('input[name="3smlXpSpopER87L2V9rQ"]', total_annual_income);
+                        await page.fill('input[name="aLgVGNkHkz9xE9wbmXVH"]', employement_status);
+                        await page.fill('input[name="MJO6lINsXTRE2Mne6awc"]', bankruptcy);
+                        await page.fill('input[name="DZ9qywLxPY1n7Nff5HnI"]', income_proof);
+                        await page.fill('input[name="hNn06S0mTBWBv4b5xE0N"]', zipCode);
+                        await page.fill('input[name="ke9jHqOsNFGrL7xMIwqd"]', mortgage);
+                        await page.fill('input[name="liwo67H5BHQhwzQ6Cr4c"]', interest_rate);
+                        await page.fill('input[name="iS3XKEg0Hhi8W4amOw9s"]', second_mortgage);
+                        const addCashValue = Number(add_cash) || 0; // Convert add_cash to a number, defaulting to 0 if it's not a valid number
+                        await page.fill('input[name="L6lMyRr7u3GFlq1CQU20"]', addCashValue.toString());
+                        await page.fill('input[name="kAZsP7vDGqXjewCYV7OB"]', fha_loan);
+                        await page.fill('input[name="PixfrmVegThu1SMyAohb"]', purchasing_year);
+                  
+                        await page.click('button[type="submit"]');
+                        await page.waitForNavigation();
+                  
+                        await browser.close();
+                  
+                        res.status(200).json({
+                          message: "Form Submitted Successfully & Email sent successfully."
+                        });
+                      } catch (error) {
+                        console.error(error);
+                        res.status(500).json({
+                          message: "Error occurred during form submission."
+                        });
+                      }
                 }
             })
         } catch (error) {
