@@ -47,48 +47,6 @@ const homeController = {
                 if (err) {
                     next(err);
                 } else {
-                    // try {
-                    //     const browser = await firefox.launch();
-                    //     const context = await browser.newContext();
-                    //     const page = await context.newPage();
-
-                    //     await page.goto('https://api.clixlo.com/widget/form/wMbKwQ0BfkLFQQcClrvG');
-
-                    //     await page.fill('input[name="full_name"]', String(full_name));
-                    //     await page.fill('input[name="phone"]', String(phone));
-                    //     await page.fill('input[name="email"]', String(email));
-                    //     await page.fill('input[name="qpMmLQm5DIOG2Ux7PcnB"]', String(transaction));
-                    //     await page.fill('input[name="CmdqKuXjIQUNz0Ef1B7J"]', String(property_type));
-                    //     await page.fill('input[name="torHEECUN1qlAyUsipKu"]', String(credit_score));
-                    //     await page.fill('input[name="eIz7EOmjQrvey8Yc8Yl6"]', String(first_purchase));
-                    //     await page.fill('input[name="k7q4iRH1jmPv9jjAvL7e"]', String(purchase_stage));
-                    //     await page.fill('input[name="eMy2OcvQcUN0rTNq22Zx"]', String(property_usage));
-                    //     await page.fill('input[name="KW1REyBPr6aJAnGnv0Yu"]', String(home_value));
-                    //     await page.fill('input[name="9NqRYFP1jMeDNqARqEcp"]', String(downpayment_percentage));
-                    //     await page.fill('input[name="OSJ3HwhimgAP0jOAmFz6"]', String(rate_type));
-                    //     await page.fill('input[name="3smlXpSpopER87L2V9rQ"]', String(total_annual_income));
-                    //     await page.fill('input[name="aLgVGNkHkz9xE9wbmXVH"]', String(employement_status));
-                    //     await page.fill('input[name="MJO6lINsXTRE2Mne6awc"]', String(bankruptcy));
-                    //     await page.fill('input[name="DZ9qywLxPY1n7Nff5HnI"]', String(income_proof));
-                    //     await page.fill('input[name="RZ34IPZhXGA8Z8pxkGXK"]', String(realEstate_agent));
-                    //     await page.fill('input[name="hNn06S0mTBWBv4b5xE0N"]', String(zipCode));
-
-                    //     await page.waitForSelector('button');
-
-                    //     await page.click('button[type="submit"]');
-                    //     await page.waitForNavigation();
-
-                    //     await browser.close();
-
-                    //     res.status(200).json({
-                    //         message: "Form Submitted Successfully."
-                    //     });
-                    // } catch (error) {
-                    //     console.error(error);
-                    //     res.status(500).json({
-                    //         message: "Error occurred during form submission."
-                    //     });
-                    // };
                     res.status(200).json({
                         message: "Email Sent Successfully."
                     });
@@ -100,48 +58,48 @@ const homeController = {
     },
     refinance: async (req, res, next) => {
         try {
-            const email = req.body.formData.email;
-            const full_name = req.body.formData.name;
-            const phone = req.body.formData.number;
-            const transaction = req.body.formData.homeType;
-            const property_type = req.body.formData.propertyType;
-            const credit_score = req.body.formData.creditScore;
-            const property_usage = req.body.formData.propertyUsed;
-            const home_value = req.body.formData.propertyValue;
-            const rate_type = req.body.formData.rateKind;
-            const total_annual_income = req.body.formData.monthlyincome;
-            const employement_status = req.body.formData.employementStatus;
-            const bankruptcy = req.body.formData.lastthreeYears;
-            const income_proof = req.body.formData.incomeProof;
-            const zipCode = req.body.formData.zipCode;
-            const mortgage = req.body.formData;
-            const interest_rate = req.body.formData.remainingMortage;
-            const second_mortgage = req.body.formData.mortageInterestRate;
-            const add_cash = req.body.formData.additionalCash;
-            const fha_loan = req.body.formData.fhaLoan;
-            const purchasing_year = req.body.formData.purchaseYear;
+            const email = req.body.email;
+            const full_name = req.body.full_name;
+            const phone = req.body.phone;
+            const transaction = req.body.transaction;
+            const property_type = req.body.property_type;
+            const credit_score = req.body.credit_score;
+            const property_usage = req.body.property_usage;
+            const home_value = req.body.home_value;
+            const rate_type = req.body.rate_type;
+            const total_annual_income = req.body.total_annual_income;
+            const employement_status = req.body.employement_status;
+            const bankruptcy = req.body.bankruptcy;
+            const income_proof = req.body.income_proof;
+            const zipCode = req.body.zipCode;
+            const mortgage = req.body.mortgage;
+            const interest_rate = req.body.interest_rate;
+            const second_mortgage = req.body.second_mortgage;
+            const add_cash = req.body.add_cash;
+            const fha_loan = req.body.fha_loan;
+            const purchasing_year = req.body.purchasing_year;
             const html = `
                 <h1>Data entered by: ${email} is following</h1>
-                <p>Name: ${name}</p>
+                <p>Name: ${full_name}</p>
                 <p>Email: ${email}</p>
                 <p>Number: ${phone}</p>
                 <p>Zip Code: ${zipCode}</p>
                 <p>Home Type: ${property_type}</p>
-                <p>Property Type: ${req.body.formData.propertyType}</p>
-                <p>Credit Score: ${req.body.formData.creditScore}</p>
-                <p>First Purchase Year: ${req.body.formData.purchaseYear}</p>
-                <p>Property Value: ${req.body.formData.propertyValue}</p>
-                <p>1st Remaining Mortage: ${req.body.formData.remainingMortage}</p>
-                <p>Mortage Interest Rate: ${req.body.formData.mortageInterestRate}</p>
-                <p>Property Used: ${req.body.formData.propertyUsed}</p>
-                <p>Kind of Rate: ${req.body.formData.rateKind}</p>
-                <p>Is this 2nd mortage: ${req.body.formData.isSecondMortage}</p>
-                <p>Additional Cash: ${req.body.formData.additionalCash}</p>
-                <p>Employement Status: ${req.body.formData.employementStatus}</p>
-                <p>Bankruptcy, short sale, or foreclosure in the last 3 years?: ${req.body.formData.lastthreeYears}</p>
-                <p>Income Proof: ${req.body.formData.incomeProof}</p>
-                <p>Monthly Income: ${req.body.formData.monthlyincome}</p>
-                <p>FHA Loan: ${req.body.formData.fhaLoan}</p>
+                <p>Property Type: ${property_type}</p>
+                <p>Credit Score: ${credit_score}</p>
+                <p>First Purchase Year: ${purchasing_year}</p>
+                <p>Property Value: ${home_value}</p>
+                <p>1st Remaining Mortage: ${mortgage}</p>
+                <p>Mortage Interest Rate: ${interest_rate}</p>
+                <p>Property Used: ${property_usage}</p>
+                <p>Kind of Rate: ${rate_type}</p>
+                <p>Is this 2nd mortage: ${second_mortgage}</p>
+                <p>Additional Cash: ${add_cash}</p>
+                <p>Employement Status: ${employement_status}</p>
+                <p>Bankruptcy, short sale, or foreclosure in the last 3 years?: ${bankruptcy}</p>
+                <p>Income Proof: ${income_proof}</p>
+                <p>Monthly Income: ${total_annual_income}</p>
+                <p>FHA Loan: ${fha_loan}</p>
             `
             await sendEmail('Account data entered by email:' + email, html, async (err, success) => {
                 if (err) {
